@@ -226,11 +226,12 @@ EOT
         GATEWAY6=$(get_gateway6)
         CONTEXT_FORCE_IPV4=$(get_iface_var "CONTEXT_FORCE_IPV4")
 
-        echo "auto $DEV"
+        if [[ -n "$IP" || -n "$IPV6" ]]; then
+            echo "auto $DEV"
 
-        [[ -z $IPV6 || -n $CONTEXT_FORCE_IPV4 ]] && gen_iface_conf
-        [[ -n $IPV6 ]] && gen_iface6_conf
-
+            [[ -z $IPV6 || -n $CONTEXT_FORCE_IPV4 ]] && gen_iface_conf
+            [[ -n $IPV6 ]] && gen_iface6_conf
+        fi
     done
 }
 
